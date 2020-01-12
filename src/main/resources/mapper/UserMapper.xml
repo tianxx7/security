@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.txx.security.mapper.UserMapper">
+
+    <resultMap id="userMap" type="com.txx.security.entity.User">
+        <id property="userId" column="user_id"></id>
+        <result property="userName" column="user_name"></result>
+        <result property="userPhone" column="user_phone"></result>
+        <result property="userPassword" column="user_password"></result>
+        <collection property="roles" column="user_id" select="com.txx.security.mapper.UserRoleMapper.roles"></collection>
+    </resultMap>
+
+    <select id="getUser" parameterType="string" resultMap="userMap">
+        SELECT
+            u.user_name,u.user_phone,u.user_id,u.user_password
+        FROM
+            user u
+        WHERE
+            u.user_phone = #{phone}
+            AND u.user_status = '0'
+    </select>
+</mapper>
