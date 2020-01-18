@@ -1,5 +1,8 @@
 package com.txx.security.config;
 
+import com.google.code.kaptcha.Producer;
+import com.google.code.kaptcha.impl.DefaultKaptcha;
+import com.google.code.kaptcha.util.Config;
 import com.txx.security.service.CustomerUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +14,8 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.Properties;
 
 /**
  * @author labvi
@@ -59,5 +64,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
+    }
+    @Bean
+    public Producer captcha(){
+        Properties properties = new Properties();
+        //图片宽度,高度
+        properties.setProperty("kaptcha.image.width","150");
+        properties.setProperty("kaptcha.image.height","150");
+        //字符集
+        properties.setProperty("kaptcha.textproducer.char.string","0123456789");
+        //字符长度
+        properties.setProperty("kaptcha.textproducer.char.string.length","4");
+        DefaultKaptcha defaultKaptcha = new DefaultKaptcha();
+        defaultKaptcha.setConfig(new Config(properties));
+        return defaultKaptcha;
+
     }
 }
