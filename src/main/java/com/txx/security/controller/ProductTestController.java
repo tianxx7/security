@@ -1,5 +1,6 @@
 package com.txx.security.controller;
 
+import com.txx.security.common.ResponseData;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductTestController {
     @GetMapping("/info")
     @ResponseBody
-    public String productInfo(){
-
-        return "some product info";
+    public ResponseData productInfo(){
+        return ResponseData.ok("some product info");
     }
 }

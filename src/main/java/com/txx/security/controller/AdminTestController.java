@@ -1,5 +1,6 @@
 package com.txx.security.controller;
 
+import com.txx.security.common.ResponseData;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AdminTestController {
     @GetMapping("/home")
     @ResponseBody
-    public String productInfo(){
-        return "admin home page";
+    public ResponseData productInfo(){
+        return ResponseData.ok("admin home page");
     }
 }
