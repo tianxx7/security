@@ -29,18 +29,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        /*http.
+       /* http.
                 authorizeRequests()
                 .antMatchers("/product/**").hasRole("USER")
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and().formLogin();*/
-        http.
-                authorizeRequests()
+        http.csrf().disable()
+                .authorizeRequests()
                 .antMatchers("/product/**").hasAuthority("USER")
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
+                .antMatchers("/login.html").permitAll()
+                .antMatchers("/captcha.jpg").permitAll()
                 .anyRequest().authenticated()
-                .and().formLogin();
+                .and()
+                .formLogin().loginPage("/login.html")
+                .loginProcessingUrl("/authentication/form");
     }
 
     @Override
@@ -70,11 +74,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         Properties properties = new Properties();
         //图片宽度,高度
         properties.setProperty("kaptcha.image.width","150");
-        properties.setProperty("kaptcha.image.height","150");
+        properties.setProperty("kaptcha.image.height","40");
         //字符集
         properties.setProperty("kaptcha.textproducer.char.string","0123456789");
         //字符长度
-        properties.setProperty("kaptcha.textproducer.char.string.length","4");
+        properties.setProperty("kaptcha.textproducer.char.length","4");
+        properties.setProperty("kaptcha.border","no");
+        properties.setProperty("kaptcha.border.color","105,179,90");
+        properties.setProperty("kaptcha.textproducer.font.size","30");
         DefaultKaptcha defaultKaptcha = new DefaultKaptcha();
         defaultKaptcha.setConfig(new Config(properties));
         return defaultKaptcha;
