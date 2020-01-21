@@ -54,7 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(true) // 使该用户的HttpSession失效
                 .deleteCookies("cookie","cookie")//注销成功从,删除指定的cookie
                 .and()
-                .sessionManagement().invalidSessionUrl("/login.html")//会话超时重新定位到登录
+                .sessionManagement().maximumSessions(1).and().invalidSessionUrl("/login.html")//会话超时重新定位到登录
 //                .sessionManagement().invalidSessionStrategy(new MyInvalidSessionStrategy())
                 .and()
                 .rememberMe()
