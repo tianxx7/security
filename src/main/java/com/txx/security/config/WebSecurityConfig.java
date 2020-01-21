@@ -15,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Properties;
@@ -54,7 +55,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(true) // 使该用户的HttpSession失效
                 .deleteCookies("cookie","cookie")//注销成功从,删除指定的cookie
                 .and()
-                .sessionManagement().maximumSessions(1).and().invalidSessionUrl("/login.html")//会话超时重新定位到登录
+                .sessionManagement()
+                .maximumSessions(1)
+                .maxSessionsPreventsLogin(true) // 阻止新会话建立,默认为false,只能等旧会话过期才可以重新登录,超时间内,登出就不能登录了
+                .and().invalidSessionUrl("/login.html")//会话超时重新定位到登录
 //                .sessionManagement().invalidSessionStrategy(new MyInvalidSessionStrategy())
                 .and()
                 .rememberMe()
@@ -73,6 +77,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationProvider authenticationProvider(){
         return new MyAuthenticationProvider(userDetailsService,new BCryptPasswordEncoder());
+    }
+
+    @Bean
+    public HttpSessionEventPublisher httpSessionEventPublisher(){
+        return new HttpSessionEventPublisher();
     }
 
     @Bean
