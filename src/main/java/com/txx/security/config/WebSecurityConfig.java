@@ -46,7 +46,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .authenticationDetailsSource(myWebAuthenticationDetailsSource) // 应用AuthenticationDetailsSource
                 .loginPage("/login.html")
-                .loginProcessingUrl("/authentication/form");
+                .loginProcessingUrl("/authentication/form")
+                .and()
+                .logout()
+                .logoutUrl("/myLogout") // 默认/logout
+               // .logoutSuccessUrl("/") // 注销成功后重定向的路由
+                .invalidateHttpSession(true) // 使该用户的HttpSession失效
+                .deleteCookies("cookie","cookie")//注销成功从,删除指定的cookie
+                .and()
+                .sessionManagement().invalidSessionUrl("/login.html")//会话超时重新定位到登录
+//                .sessionManagement().invalidSessionStrategy(new MyInvalidSessionStrategy())
+                .and()
+                .rememberMe()
+                .userDetailsService(userDetailsService)
+        .key("my");
     }
 
     @Override
