@@ -26,8 +26,10 @@ import java.util.Properties;
  */
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-   /* @Autowired
-    private SpringSessionBackedSessionRegistry redisSessionRegistry;*/
+
+    /*@Autowired
+    private SpringSessionBackedSessionRegistry sessionRegistry;*/
+
 
     @Autowired
     private AuthenticationDetailsSource<HttpServletRequest,WebAuthenticationDetails> myWebAuthenticationDetailsSource;
@@ -59,7 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .sessionManagement()
                 .maximumSessions(1)
-//                .sessionRegistry(redisSessionRegistry)//使用session提供的会话注册表
+//                .sessionRegistry(sessionRegistry)//使用session提供的会话注册表
                 //会话数达到最大,阻止新会话建立,而不是踢掉旧的会话,带来的问题是,登出后没办法重新登录
                 //这是因为spring security是通过监听session的销毁事件来出发会话信息表相关清理工作的
                 //但我们并没有注册相关的监听器,导致security 无法正常清理过期或已经注销的会话
