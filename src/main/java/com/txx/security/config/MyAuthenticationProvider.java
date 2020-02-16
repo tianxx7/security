@@ -16,7 +16,7 @@ public class MyAuthenticationProvider extends DaoAuthenticationProvider {
     public MyAuthenticationProvider(CustomerUserDetailsService userDetailsService, PasswordEncoder passwordEncoder){
        this.setUserDetailsService(userDetailsService);
        this.setPasswordEncoder(passwordEncoder);
-   }
+    }
 
     @Override
     protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {

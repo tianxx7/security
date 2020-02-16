@@ -1,12 +1,8 @@
 package com.txx.security.config;
 
-import com.google.code.kaptcha.Producer;
-import com.google.code.kaptcha.impl.DefaultKaptcha;
-import com.google.code.kaptcha.util.Config;
 import com.txx.security.service.CustomerUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -18,13 +14,12 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Properties;
 
 /**
  * @author labvi
  * @version 1.0.0
  */
-@Configuration
+//@Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /*@Autowired
@@ -98,22 +93,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-    @Bean
-    public Producer captcha(){
-        Properties properties = new Properties();
-        //图片宽度,高度
-        properties.setProperty("kaptcha.image.width","150");
-        properties.setProperty("kaptcha.image.height","40");
-        //字符集
-        properties.setProperty("kaptcha.textproducer.char.string","0123456789");
-        //字符长度
-        properties.setProperty("kaptcha.textproducer.char.length","4");
-        properties.setProperty("kaptcha.border","no");
-        properties.setProperty("kaptcha.border.color","105,179,90");
-        properties.setProperty("kaptcha.textproducer.font.size","30");
-        DefaultKaptcha defaultKaptcha = new DefaultKaptcha();
-        defaultKaptcha.setConfig(new Config(properties));
-        return defaultKaptcha;
 
-    }
 }
