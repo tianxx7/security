@@ -29,6 +29,6 @@ public class AdminTestController {
         WebApplicationContext context = (WebApplicationContext) servletContext.getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
         RedisConnectionFactory bean = context.getBean(RedisConnectionFactory.class);
         System.out.println(bean);
-        return ResponseData.ok("admin home page" + port);
+        return ResponseData.ok("pages home page" + port);
     }
 }
