@@ -6,6 +6,8 @@ import com.google.code.kaptcha.util.Config;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
@@ -16,10 +18,14 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import java.time.Duration;
 import java.util.Properties;
 
+/*
+* todo UserDetailsServiceAutoConfiguration的影响
+* */
 
-@SpringBootApplication
+@SpringBootApplication(
+        exclude = {RedisAutoConfiguration.class, UserDetailsServiceAutoConfiguration.class}
+)
 @MapperScan("com.txx.security.mapper")
-//@EnableCaching
 public class SecurityApplication {
 
     public static void main(String[] args) {
