@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author labvi
  * @version 1.0.0
  */
-@Configuration
+//@Configuration
 public class NoFilterDbWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -46,7 +46,8 @@ public class NoFilterDbWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin().loginPage("/login.html")
                 .loginProcessingUrl("/authentication/form")
                 .authenticationDetailsSource(authenticationDetailsSource)
-                .defaultSuccessUrl("/hello");//登录成功后,返回的结果 例如登录成功后返回 /hello请求的结果
+                .defaultSuccessUrl("/hello");
+                 //登录成功后,返回的结果 例如登录成功后返回 /hello请求的结果
     }
 
     @Override
